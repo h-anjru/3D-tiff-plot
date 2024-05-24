@@ -13,13 +13,13 @@ Both TIFFs are read using `readgeoraster()`, which provides each pixel's digital
 
 To ensure both TIFFs align to each other, both will be interpolated to a new grid that is created within the inner bounds. This new grid aligns to the level of precision of the attribute TIFF (i.e., the TIFF to be used for coloring the plot). For example, if the attribute TIFF's cells are 0.1 m by 0.1 m, the new grid's coordinates will align to the nearest 0.1 m of the world coordinate system. The coordinates of a given point in the new grid might be, say, E, N \[m\]: 12358.0, 314159.3.
 
-The user input of plot bounds is converted from world XY to column and row. For a given point in world coordinates $(X,Y)_\text{world}$:
+The user input of plot bounds is converted from world XY to column and row. For a given point in world coordinates $(X,Y)$:
 
-$\text{col}=\dfrac{(X_\text{world} - X_\text{min})}{\text{pix}_X}+1$
+$\text{col}=\dfrac{(X - X_\text{min})}{\text{pix}_X}+1$
 
-$\text{row}=\dfrac{(Y_\text{max} - Y_\text{world})}{\text{pix}_Y}+1$
+$\text{row}=\dfrac{(Y_\text{max} - Y)}{\text{pix}_Y}+1$
 
-where $X_\text{min}$ and $Y_\text{max}$ are elements of the bounds of the interpolated grid and $\text{pix}$ are the dimensions of the pixel in $X$ and $Y$ as denoted by the subscript. (The $+1$ is necessary for MATLAB as array elements are numbered starting from 1.)
+where $X_\text{min}$ and $Y_\text{max}$ are elements of the bounds of the interpolated grid in world coordinates and $\text{pix}$ are the dimensions of the pixel in $X$ and $Y$ as denoted by the subscript. (The $+1$ is necessary for MATLAB as array elements are numbered starting from 1.)
 
 The remainder of the script plots the surface and sets a number of attributes of the plot. The surface and the axis object handles are passed into the workspace for ease of manipulation.
 
