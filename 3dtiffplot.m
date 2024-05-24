@@ -62,7 +62,7 @@ s = surf( ...
     );
 
 % surface properties
-s.FaceColor = 'interp';     % faces span between pixels          
+s.FaceColor = 'interp';     % faces span between pixels
 s.EdgeAlpha = 0.0;          % set to 0 for plotting large surfaces
 
 % set light angle (azimuth, elevation) for shading
@@ -87,5 +87,5 @@ axis equal;
 colormap(jet)
 
 bar = colorbar;
-bar.Label.String = 'Change in elevation [m]';
+bar.Label.String = 'Change in elevation [m]';  % change label to attribute
 bar.FontSize = 12;

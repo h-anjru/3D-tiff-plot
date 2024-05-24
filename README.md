@@ -24,11 +24,27 @@ where $X_\text{min}$ and $Y_\text{max}$ are elements of the bounds of the interp
 The remainder of the script plots the surface and sets a number of attributes of the plot. The surface and the axis object handles are passed into the workspace for ease of manipulation.
 
 ## How to use
-The script needs only three items of user input:
+The script needs only four items of user input:
 
 1. `elev_tiff`: The DEM TIFF filename to be used for the elevation of the surface plot
 2. `color_tiff`: The atttribute TIFF filename used to color the surface plot
 3. `plot_easting` and `plot_northing`: `1x2` arrays of the desired surface plot's bounds
+4. `bar.Label.String`: Provide a label which describes the contents of hte attribute TIFF
+
+## Notes on interpolation
+Each XY point in the grid created with `meshgrid()` is the center of a pixel. The faces of the surface that is to be plotted will not be the pixels of the TIFF, but  rather interpolated faces between the center points of each pixel.
+
+The coloring of the surface will also be handled in this manner. Each XY point will have an associated color from the attribute TIFF, but the colors will be plotted not on the points but on the interpolated faces.
+
+For this reason, the `FaceColor` attribute of the surface handle is set to `'interp'`.
+
+![Interpolated face colors from color data at each XY point.](https://www.mathworks.com/help/matlab/ref/facecolor_surface_interp.png)
+
+If it were imperative to remain true to the elevations and colors as defined by the input TIFFs, the mesh grid and the interpolated TIFFs would need to be shifted one half pixel length down and to the left: 
+
+!["Flat" face colors as defined by the point at the bottom left corner of each face.](facecolor_surface_flat.png)
+
+*Images in this section from [mathworks.com/help/matlab/ref/surf.html](https://www.mathworks.com/help/matlab/ref/surf.html).*
 
 ## Caveats
 This script does not check the `MapCellsReference` objects of the two TIFFs to ensure they are compatiable (e.g., that they share the same projected CRS). 
